@@ -10,6 +10,15 @@ function App() {
   const [pacientes, setPacientes] = useState([]); //Array de pacientes
   const [paciente, setPaciente] = useState({}) //Objeto paciente
 
+  useEffect(() => {
+    const obtenerLS = () => {
+      const pacientesLS = JSON.parse(localStorage.getItem('pacientes')) ?? []
+      setPacientes(pacientesLS)
+    }
+    obtenerLS()
+  }, []) //Al pasarlo vacío se ejecuta una sola vez
+  
+  
   useEffect( () => {
     localStorage.setItem('pacientes', JSON.stringify(pacientes))
   }, [pacientes])
@@ -20,8 +29,8 @@ function App() {
   }
 
   return (
-    <div className="container  mx-auto mt-20">
-      <Header />
+      <div className="container  mx-auto mt-20">
+        <Header />
       <div className="mt-12 md:flex">
         <Formulario
         pacientes={pacientes}
